@@ -13,7 +13,7 @@ router.get("/api/workouts/range", (req, res) => {
           } else {
                res.json(data);
           }
-     });
+     }).sort({ $natural: -1 }).limit(7);
 });
 
 
