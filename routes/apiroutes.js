@@ -1,12 +1,11 @@
 const Workout = require('../models/Workout.js');
 const router = require('express').Router();
 
-// Route for Dashboard - only display 7 days
+// Route for Dashboard - only display 7 days. Sum up the duration of exercises
 router.get("/api/workouts/range", (req, res) => {
      Workout.aggregate([
           { $addFields: { totalDuration: { $sum: "$exercises.duration" } } },
      ])
-          // .sort({ $natural: -1 }).limit(7)
           .sort({ day: -1 }).limit(7)
           .then(dbWorkout => {
                res.json(dbWorkout);
@@ -16,7 +15,7 @@ router.get("/api/workouts/range", (req, res) => {
           })
 });
 
-// Route to find the last workout stats
+// Route to find the last workout stats.  Sum up the duration of exercises.
 router.get("/api/workouts", (req, res) => {
      Workout.aggregate([
           { $addFields: { totalDuration: { $sum: "$exercises.duration" } } },
@@ -38,6 +37,7 @@ router.post("/api/workouts", (req, res) => {
           })
           .catch((err) => {
                res.json(err);
+               res.sendStatus(500);
           });
 });
 
@@ -49,9 +49,8 @@ router.put("/api/workouts/:id", (req, res) => {
           (err, dbWorkout) => {
                if (err) {
                     console.log(err);
-                    res.send(err);
+                    res.sendStatus(500);
                } else {
-                    console.log(dbWorkout);
                     res.send(dbWorkout);
                }
           }
