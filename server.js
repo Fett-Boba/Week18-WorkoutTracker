@@ -5,7 +5,8 @@ const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 
-const db = require("./models");
+//const db = require("./models");
+//const { Workout } = require("./models");
 
 const app = express();
 
@@ -18,45 +19,16 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/workout", {
      useNewUrlParser: true,
+     useFindAndModify: false,
      useUnifiedTopology: true,
      useCreateIndex: true,
 });
 
-// Routes here ?
-
-// /api/workouts  (put, post)
-// /api/workouts/range (get)
-
-// /exercise/:id  (from exercise)
-
-// /stats  (from exercise)
-// / 
-
-
-
 // HTML Routes
-app.get("/", (req, res) => {
-     res.sendFile(path.join(__dirname, "/public/index.html"));
-});
-app.get("/stats", (req, res) => {
-     res.sendFile(path.join(__dirname, "/public/stats.html"));
-});
-
+app.use(require("./routes/homeroutes.js"));
 
 // API Routes
-app.get("/api/workouts/range", (req, res) => {
-     db.Workout.find({}, (err, data) => {
-          if (err) {
-               console.log(err);
-               res.sendStatus(500);
-          } else {
-               res.json(data);
-          }
-     });
-});
-
-
-
+app.use(require("./routes/apiroutes.js"));
 
 app.listen(PORT, () => {
      console.log(`App running on port ${PORT}!`);

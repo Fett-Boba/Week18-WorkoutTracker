@@ -1,7 +1,9 @@
-let Workout = require("./Workout");
+// let Workout = require("./Workout");
 
-
+// module.exports = {
+//      Workout
+// };
 
 module.exports = {
-     Workout
-};
+     Workout: require("./Workout"),
+}
