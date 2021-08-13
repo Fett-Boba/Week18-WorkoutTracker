@@ -7,7 +7,7 @@ const db = require('../models');
 //      useUnifiedTopology: true,
 // });
 
-mongoose.connect('mongodb+srv://tmsuser:imat69su@cluster0.vcsyo.mongodb.net/Workout?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://newuser:mynewuser@cluster0.vcsyo.mongodb.net/Workout?retryWrites=true&w=majority', {
      useNewUrlParser: true,
      useFindAndModify: false,
      useUnifiedTopology: true,
