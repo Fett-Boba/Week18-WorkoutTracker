@@ -7,12 +7,6 @@ const db = require('../models');
 //      useUnifiedTopology: true,
 // });
 
-mongoose.connect('mongodb+srv://newuser:mynewuser@cluster0.vcsyo.mongodb.net/Workout?retryWrites=true&w=majority', {
-     useNewUrlParser: true,
-     useFindAndModify: false,
-     useUnifiedTopology: true,
-});
-
 const workoutSeed = [
      {
           day: new Date(new Date().setDate(new Date().getDate() - 9)),
